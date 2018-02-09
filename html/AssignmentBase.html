@@ -1,0 +1,321 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>AssignmentBase</title><meta name="generator" content="MATLAB 9.2"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-02-04"><meta name="DC.source" content="AssignmentBase.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1></h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1"><b>Assignment#1-Part 1:Electron Modelling</b></a></li></ul></div><h2 id="1"><b>Assignment#1-Part 1:Electron Modelling</b></h2><pre class="codeinput"><span class="comment">%Jason Gazo (100975245)                                  Date: Feb/04/2018</span>
+
+<span class="comment">%The purpose of this script is to define the parameters for the movie and</span>
+<span class="comment">%to initialize the thermal velocity, number of particles, size of window,</span>
+<span class="comment">%and mass of particles. The bottom of the script runs the movie.</span>
+
+    clc
+    clear <span class="string">all</span>
+
+
+    <span class="comment">%effective mass of electrons =mn</span>
+    <span class="comment">%rest mass mo in kg</span>
+    mo=9.109*10^-31;
+    m=0.26*mo;
+    <span class="comment">%botlzman constant</span>
+    kb=1.38064*10^-23;
+
+
+    <span class="comment">%%Question 1: Solve for thermal velocity:</span>
+    vt=@(t) sqrt(kb*t/m);
+    vth=vt(300);
+    fprintf(<span class="string">'The expected thermal velocity is %6.4f m/s \n'</span>,vt(300))
+
+    <span class="comment">%%Question 2: Solve for the mean free path:</span>
+    fprintf(<span class="string">'The expected mean time between collisions is 0.200e-12 seconds \n'</span>)
+    <span class="comment">%mean time collisions is 0.2 ps</span>
+    tmn=0.2*10^-12;
+    <span class="comment">%mean free path</span>
+    mnfreepath=tmn*vt(300);
+    fprintf(<span class="string">'The expected mean free path is %6.4f e-08 meters\n'</span>,mnfreepath*10^8)
+
+
+    <span class="comment">%Nominal size of region is 200nmx100nm</span>
+    fprintf(<span class="string">'-----------------------------------------------------------\n'</span>)
+    w=200*10^-9;
+
+    l=100*10^-9;
+
+    <span class="comment">%Setting the time step:</span>
+    deltaT=7.562*10^-15;
+    num=10;
+    <span class="comment">%Call the function to run the movie (Ex:10 particles will be used here)</span>
+
+
+
+
+
+    <span class="comment">%Randomize the initial location of the particles in the frame</span>
+    vertarray=rand(num,1)*w;
+    horarray=rand(num,1)*l;
+
+    <span class="comment">%Generate the array of velocities and random angles (0 -&gt; 2*pi)</span>
+
+    angles=rand(num)*2*pi;
+    vx=ones(num,1);
+    vy=ones(num,1);
+    vrms=ones(num,1);
+
+    <span class="comment">%All particles will have the same velocity except with a random trajectory</span>
+    <span class="keyword">for</span> i=1:num
+        vx(i)=cos(angles(i))*vth;
+        vy(i)=sin(angles(i))*vth;
+    <span class="keyword">end</span>
+
+
+    sumtemp=0;
+
+    <span class="comment">%%Movie begins here for a total of 400 iterations</span>
+    <span class="keyword">for</span> i=1:400
+
+        <span class="comment">%horizontal periodic boundary behaviour</span>
+        horarray(horarray&gt;=l)=horarray(horarray&gt;=l) - l;
+        horarray(horarray&lt;=0)=horarray(horarray&lt;=0)+l;
+
+        <span class="comment">%vertical reflection boundary behaviour</span>
+        IT=[vertarray&gt;=w];
+        vy(IT)=-vy(IT);
+        IT=[vertarray&lt;=0];
+        vy(IT)=-vy(IT);
+
+        <span class="comment">%Temperature Checker</span>
+        vrms=sqrt((sum(abs(vx))/num)^2+(sum(abs(vy))/num)^2);
+        Temp=m*mean(vrms.^2)/kb;
+
+        <span class="comment">%Average Temperature</span>
+        sumtemp=sumtemp+Temp;
+        avgtemp=sumtemp/i;
+
+        <span class="comment">%Plot the temperature of the particles</span>
+        subplot(2,1,2)
+        plot(i*deltaT,Temp,<span class="string">'+'</span>)
+        title(<span class="string">'Temperature over Time'</span>)
+        ylabel(<span class="string">'Temperature (kelvin)'</span>)
+        xlabel(<span class="string">'Time'</span>)
+        ylim([0 Temp+Temp*1.25])
+        hold <span class="string">on</span>
+
+        <span class="comment">%Update the particle's coordinates by their x- and y- velocities</span>
+        horarray=horarray+vx.*deltaT;
+        vertarray=vertarray+vy.*deltaT;
+
+        <span class="comment">%Plot the movement of the particles</span>
+        subplot(2,1,1)
+        plot(horarray,vertarray,<span class="string">'.'</span>)
+        title(<span class="string">'Movement of Electrons'</span>)
+        xlim([0 l])
+        ylim([0 w])
+        hold <span class="string">on</span>
+        pause(.01)
+
+    <span class="keyword">end</span>
+    <span class="comment">%Movie ends</span>
+
+
+
+<span class="comment">%The movie runs properly.The particles reflect off the vertical (top and</span>
+<span class="comment">%bottom) boundaries of the frame. The particles pass between the two</span>
+<span class="comment">%horizontal boundaries. The temperature remains constant (300k) since there</span>
+<span class="comment">%aren't any scattering events. The expected thermal velocity is 1.3 e5 m/s</span>
+<span class="comment">%and the expected mean free path is 2.6e-9 m.</span>
+</pre><pre class="codeoutput">The expected thermal velocity is 132244.8682 m/s 
+The expected mean time between collisions is 0.200e-12 seconds 
+The expected mean free path is 2.6449 e-08 meters
+-----------------------------------------------------------
+</pre><img vspace="5" hspace="5" src="AssignmentBase_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+
+
+%%               *Assignment#1-Part 1:Electron Modelling*
+%
+%Jason Gazo (100975245)                                  Date: Feb/04/2018
+ 
+%The purpose of this script is to define the parameters for the movie and
+%to initialize the thermal velocity, number of particles, size of window,
+%and mass of particles. The bottom of the script runs the movie.
+
+    clc
+    clear all
+
+
+    %effective mass of electrons =mn
+    %rest mass mo in kg
+    mo=9.109*10^-31;
+    m=0.26*mo;
+    %botlzman constant
+    kb=1.38064*10^-23;
+
+
+    %%Question 1: Solve for thermal velocity:
+    vt=@(t) sqrt(kb*t/m);
+    vth=vt(300);
+    fprintf('The expected thermal velocity is %6.4f m/s \n',vt(300))
+
+    %%Question 2: Solve for the mean free path:
+    fprintf('The expected mean time between collisions is 0.200e-12 seconds \n')
+    %mean time collisions is 0.2 ps
+    tmn=0.2*10^-12;
+    %mean free path
+    mnfreepath=tmn*vt(300);
+    fprintf('The expected mean free path is %6.4f e-08 meters\n',mnfreepath*10^8)
+
+
+    %Nominal size of region is 200nmx100nm
+    fprintf('REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-\n')
+    w=200*10^-9;
+
+    l=100*10^-9;
+
+    %Setting the time step:
+    deltaT=7.562*10^-15;
+    num=10;
+    %Call the function to run the movie (Ex:10 particles will be used here)
+
+
+
+
+
+    %Randomize the initial location of the particles in the frame
+    vertarray=rand(num,1)*w;
+    horarray=rand(num,1)*l;
+
+    %Generate the array of velocities and random angles (0 -> 2*pi)
+
+    angles=rand(num)*2*pi;
+    vx=ones(num,1);
+    vy=ones(num,1);
+    vrms=ones(num,1);
+
+    %All particles will have the same velocity except with a random trajectory
+    for i=1:num
+        vx(i)=cos(angles(i))*vth;
+        vy(i)=sin(angles(i))*vth;
+    end
+
+
+    sumtemp=0;
+
+    %%Movie begins here for a total of 400 iterations
+    for i=1:400
+    
+        %horizontal periodic boundary behaviour
+        horarray(horarray>=l)=horarray(horarray>=l) - l;
+        horarray(horarray<=0)=horarray(horarray<=0)+l; 
+    
+        %vertical reflection boundary behaviour
+        IT=[vertarray>=w];
+        vy(IT)=-vy(IT);
+        IT=[vertarray<=0];
+        vy(IT)=-vy(IT);
+   
+        %Temperature Checker
+        vrms=sqrt((sum(abs(vx))/num)^2+(sum(abs(vy))/num)^2);
+        Temp=m*mean(vrms.^2)/kb;
+    
+        %Average Temperature 
+        sumtemp=sumtemp+Temp;
+        avgtemp=sumtemp/i;
+    
+        %Plot the temperature of the particles
+        subplot(2,1,2)
+        plot(i*deltaT,Temp,'+')
+        title('Temperature over Time')
+        ylabel('Temperature (kelvin)')
+        xlabel('Time')
+        ylim([0 Temp+Temp*1.25])
+        hold on
+    
+        %Update the particle's coordinates by their x- and y- velocities
+        horarray=horarray+vx.*deltaT;
+        vertarray=vertarray+vy.*deltaT;
+   
+        %Plot the movement of the particles
+        subplot(2,1,1)
+        plot(horarray,vertarray,'.')
+        title('Movement of Electrons')
+        xlim([0 l])
+        ylim([0 w])
+        hold on 
+        pause(.01)
+    
+    end
+    %Movie ends
+
+
+
+%The movie runs properly.The particles reflect off the vertical (top and
+%bottom) boundaries of the frame. The particles pass between the two 
+%horizontal boundaries. The temperature remains constant (300k) since there
+%aren't any scattering events. The expected thermal velocity is 1.3 e5 m/s
+%and the expected mean free path is 2.6e-9 m. 
+
+##### SOURCE END #####
+--></body></html>
